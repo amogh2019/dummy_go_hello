@@ -47,4 +47,25 @@ func main() {
 	ii, jj = jj, ii
 	fmt.Println(ii, " ", jj)
 
+	var aa = 4
+	var bb = 10.111
+
+	// invalid type assignment
+	fmt.Println("a ", aa, " b ", bb)
+	// aa = bb this will break  // cannot assign float to int without casting
+	aa = int(bb)
+	fmt.Println("a ", aa, " b ", bb)
+
+	var aa1 int
+	// aa1 = "4"
+	aa1 = 4
+	_ = aa1
+
+	var (
+		intvar    int32
+		floatvar  float64
+		boolvar   bool
+		stringvar string
+	)
+	fmt.Println(intvar, floatvar, stringvar, boolvar)
 }
