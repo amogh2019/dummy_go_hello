@@ -4,6 +4,9 @@ import "fmt"
 
 func main() {
 
+	/*
+		About the keyword var (About Variables)
+	*/
 	// full correct way // var is the keyword to compiler that
 	//           , hey please assign a memoray location a label and treat it as variable
 	var age int = 30
@@ -68,4 +71,37 @@ func main() {
 		stringvar string
 	)
 	fmt.Println(intvar, floatvar, stringvar, boolvar)
+
+	// printing basics
+	var (
+		radius1 int    = 5
+		radius2 int    = 155
+		shape1  string = "circle"
+	)
+
+	const pi float64 = 3.14
+	// pi = pi + 1
+
+	/*
+		About printing
+	*/
+	fmt.Printf("The diameter of %s of radius %+d is %f\n", shape1, radius1, float64(radius1)*2*pi)
+	// using the generic format specififier
+	fmt.Printf("The diameter of %v of radius %+v is %v\n", shape1, radius1, float64(radius1)*2*pi)
+	// using quoted string
+	fmt.Printf("The diameter of %q of radius %+d is %f\n", shape1, radius1, float64(radius1)*2*pi)
+	// type of the variable
+	fmt.Printf("figure is of type %T", shape1)
+	// print boolean as true or false
+	fmt.Printf("value of boolean var is %t  %v %t", boolvar, boolvar, boolvar)
+	// print value in base 2 instaed of base 10
+	fmt.Printf("the value of radius in base2 is %b\n", radius1)
+	fmt.Printf("the value of radius in base2(8bit ans) is %08b\n", radius1)  // 8bits
+	fmt.Printf("the value of radius in base2(16bit ans) is %16b\n", radius1) // 8bits
+	// print value in base 16
+	fmt.Printf("the value of radius in base16 is %x\n", radius2) // 8bits
+	// formating decimal points
+	fmt.Printf("value of pi (default decimal) %f \n", pi)
+	fmt.Printf("value of pi (2 decimal decimal) %.3f \n", pi)
+
 }
