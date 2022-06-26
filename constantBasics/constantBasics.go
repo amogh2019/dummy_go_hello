@@ -95,6 +95,7 @@ func main() {
 		NORTH3 = iota + 1
 		EAST3
 		SOUTH3
+		_ // skipping value // use muting
 		WEST3
 	)
 	fmt.Printf("N:%d E:%d S:%d W:%d\n", NORTH3, EAST3, SOUTH3, WEST3)
