@@ -44,4 +44,11 @@ func main() {
 	// two more operators
 	// oprator for pointers
 	// opreator for channels
+
+
+
+
+
+
+	
 }
