@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"unsafe"
+	"github.com/amogh2019/dummy_go_math/v2/comparisonUtil"
 )
 
 func main() {
@@ -47,17 +48,17 @@ func main() {
 	a14 := []int{1, 2, 3, 4}
 	a15 := []int{1, 2}
 	var a16 []int
-	fmt.Println(compareSlices(a11, a12)) // true
-	fmt.Println(compareSlices(a11, a13)) // false
-	fmt.Println(compareSlices(a11, a14)) // false
-	fmt.Println(compareSlices(a11, a15)) // false
-	fmt.Println(compareSlices(a11, a16)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a11, a12)) // true
+	fmt.Println(comparisonUtil.CompareSlices(a11, a13)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a11, a14)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a11, a15)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a11, a16)) // false
 	// other way around
-	fmt.Println(compareSlices(a12, a11)) // true
-	fmt.Println(compareSlices(a13, a11)) // false
-	fmt.Println(compareSlices(a14, a11)) // false
-	fmt.Println(compareSlices(a15, a11)) // false
-	fmt.Println(compareSlices(a16, a11)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a12, a11)) // true
+	fmt.Println(comparisonUtil.CompareSlices(a13, a11)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a14, a11)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a15, a11)) // false
+	fmt.Println(comparisonUtil.CompareSlices(a16, a11)) // false
 
 	// append to slice
 	// append returns a new slice
@@ -144,24 +145,4 @@ func main() {
 	fmt.Println(s43[3:5])
 }
 
-func compareSlices(a []int, b []int) bool {
-	if a == nil && b == nil {
-		return true
-	}
 
-	if a == nil || b == nil {
-		return false
-	}
-
-	// compare their lengths and values in order
-	if len(a) != len(b) {
-		return false
-	}
-
-	for idx, val := range a {
-		if b[idx] != val {
-			return false
-		}
-	}
-	return true
-}
