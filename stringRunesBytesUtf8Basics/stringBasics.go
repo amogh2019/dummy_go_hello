@@ -46,5 +46,15 @@ func main() {
 	for _, rune := range s1 {
 		fmt.Printf("%c ", rune)
 	}
+	fmt.Println("\n" + strings.Repeat("#", 30))
+
+	// slicing a string
+	// since we know /// string === []bytes
+	// 1. so when we slice string , we get the slice of bytes // this would break since a char can be three byte large and we tried to get two btyes // but this is efficient since sliceing here won't create a new backing array
+	// 2. we convert string to rune-slice // i.e. string == []bytes => []runes // this would help us in easier slicing, since each charater is one rune, nothing breaks now // but this is memory expensice // creating a new rune slice from byte slice creates new backing array obvio
+	fmt.Println(s1[0:6]) // abक�  // a(1byte) b(1byte) क(3bytes) �(ख's first byte, unmapped unicode-codepoint to errorcharacter, ख takes three bytes)
+	runeSliceOfS1 := []rune(s1)
+	fmt.Println(runeSliceOfS1[0:4])         // prints integers // since its slice of rune(int32)
+	fmt.Println(string(runeSliceOfS1[0:4])) // abकख
 
 }
