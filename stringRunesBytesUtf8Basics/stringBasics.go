@@ -56,5 +56,70 @@ func main() {
 	runeSliceOfS1 := []rune(s1)
 	fmt.Println(runeSliceOfS1[0:4])         // prints integers // since its slice of rune(int32)
 	fmt.Println(string(runeSliceOfS1[0:4])) // abकख
+	fmt.Println("\n" + strings.Repeat("#", 30))
 
+	// strings library functions
+
+	p := fmt.Println
+	//Contains //  it returns true whether a substr is within a string
+	p(strings.Contains("go golang gopher", "golang"))
+
+	//ContainsAny //  // it returns true whether any Rune / Unicode code points are within our string, and false otherwise.
+	p(strings.ContainsAny("go golang gopher", "xyp"))
+
+	// it reports whether a rune is within a string.
+	p(strings.ContainsRune("go golang gopher", 'p')) // true
+	p(strings.ContainsRune("go golang gopher", 'x')) // false
+
+	// it returns the number of instances of a substring in a string
+	p(strings.Count("go golang gopher", "go")) // 3
+
+	// if the substr is an empty string Count() returns 1 + the number of runes in the string
+	p(strings.Count("five", "")) // 5
+
+	// upper lower
+	p(strings.ToLower("FivE fouR")) // five four
+	p(strings.ToUpper("FivE fouR")) // FIVE FOUR
+
+	// comparing strings (case matters)
+	// p("go" == "go") // -> true
+	p("Go" == "go") // -> false
+
+	// string comparison // case insensetive // expensive since toLower converts the string into lower, rune by rune
+	p(strings.ToLower("Go") == strings.ToLower("go")) // even ide gives warning
+
+	// string comparison // case insensetive // without converting to lower
+	p(strings.EqualFold("GO", "go")) // true
+
+	// replace // 2 occurences// all occurense // replceAll mehtod
+	p(strings.Replace("192.168.0.1", ".", ":", 2))  // it replaces the first 2 occurrences
+	p(strings.Replace("192.168.0.1", ".", ":", -1)) // it replaces the first 2 occurrences
+	p(strings.ReplaceAll("192.168.0.1", ".", ":"))  // it replaces the first 2 occurrences
+
+	// split
+	s := strings.Split("a,b,c", ",")
+	fmt.Printf("%T\n", s)                                                // -> []string slice of strings
+	fmt.Printf("strings.Split():%#v\n", s)                               // => strings.Split():[]string{"a", "b", "c"}
+	fmt.Printf("strings.Split():%#v\n", strings.Split("Go for Go!", "")) // -> []string{"G", "o", " ", "f", "o", "r", " ", "G", "o", "!"}
+
+	//Join
+	// The separator string is placed between elements in the resulting string.
+	s = []string{"I", "learn", "Golang"}
+	j := strings.Join(s, "-")
+	fmt.Printf("%T\n", j) // -> string
+	p(j)                  // -> I-learn-Golang
+
+	// splitting a string by whitespaces and newlines.
+	myStr := "Orange Green \n Blue Yellow"
+	fields := strings.Fields(myStr) // it returns a slice of strings
+	fmt.Printf("%T\n", fields)      // -> []string
+	fmt.Printf("%#v\n", fields)     // -> []string{"Orange", "Green", "Blue", "Yellow"}
+
+	// TrimSpace() removes leading and trailing whitespaces and tabs.
+	s1 = strings.TrimSpace("\t Goodbye Windows, Welcome Linux!\n ")
+	fmt.Printf("%q\n", s1) // "Goodbye Windows, Welcome Linux!"
+
+	// To remove other leading and trailing characters, use Trim()
+	s2 := strings.Trim("...Hello, Gophers!!!?", ".!?")
+	fmt.Printf("%q\n", s2) // "Hello, Gophers"
 }
