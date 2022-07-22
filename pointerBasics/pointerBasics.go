@@ -1,6 +1,39 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+type Person struct {
+	name string
+	age  int64
+}
+
+func change(a *int) {
+	*a = *a + 100
+}
+
+func incorrectChange(a int) {
+	a = a + 100
+}
+
+func changeStruct(p *Person) {
+	p.age = p.age + 1 // === (*p).age
+	(*p).name += "hello"
+}
+
+func changeSlice(list []int) {
+	for idx := range list {
+		list[idx] += 10
+	}
+}
+
+func changeMap(m map[string]int) {
+	m["a"] = 10
+	m["b"] = 20
+	m["c"] = 30
+}
 
 func main() {
 
@@ -40,5 +73,62 @@ func main() {
 	// updating value in memory location
 	*p = 40
 	p1(x, "earlier 100")
+
+	// WHY GO Pointers are easier / safe?
+	// 1.
+	// as said earlier
+	// everything in go is passed by value
+	// there is no reference // pass by references
+	// the pointers that are passed, are actually passed by value
+	// the passed pointers are clone of the orignal pointers, pointing to the same location
+
+	/** 2.
+	Memory location can still be accessed even after function has been called and scope in our opinion is destroyed
+	Once a value is assigned to a pointer, with the exception of nil which I’ll cover in the next point, Go guarantees that the thing being pointed to will continue to be valid for the lifetime of the pointer. So
+
+	func f() *int {
+	        i := 1
+	        return &i
+	}
+
+	is totally safe to do in Go. The compiler will arrange for the memory location holding the value of i to be valid after f() returns.
+	*/
+
+	// 3.
+	// there is no pointer/array duality // like in c
+	// so no pointer arithemetic
+	// strings are not pointers in go, they are a type, hence always initialized to "" , and not null which is the most common cause of NullPointerException in Java / C
+
+	fmt.Println(strings.Repeat("###", 8))
+
+	// PASS BY VALUE for int strings  struct etc // dont modify arrays waise, instead pass slice
+	x11 := 10
+	p1("value of x is", x11)
+	change(&x11)
+	p1("value of x is", x11)
+	incorrectChange(x11)
+	p1("value of x is", x11)
+	stru := Person{
+		name: "gopher",
+		age:  10,
+	}
+	p1(stru)
+	changeStruct(&stru)
+	p1(stru)
+
+	// PASS BY VALUE for slices map
+	// backing array/structure remains same
+	// slice/map headers are cloned
+	s1 := []int{1, 2, 3}
+	p1(s1)
+	changeSlice(s1)
+	p1(s1)
+	m1 := map[string]int{
+		"a": 1,
+		"b": 2,
+	}
+	p1(m1)
+	changeMap(m1)
+	p1(m1)
 
 }
