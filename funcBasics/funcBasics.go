@@ -73,7 +73,7 @@ func main() {
 			//code -> function body here
 		}
 
-		TODO whats receiver???
+		TODO whats receiver??? // ANS when we tie this function to a type(or our custom type, which is acting like a class for us, to make type work as class for us, since type already has variables, this function is now the method for that class)
 	*/
 
 	// simple function
