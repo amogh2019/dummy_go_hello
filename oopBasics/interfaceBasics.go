@@ -60,6 +60,10 @@ func (t equilateralTri) peri() float64 {
 	return 3 * t.len
 }
 
+func (c circle) volume() float64 {
+	return math.Pow(c.rad, 3)
+}
+
 func main() {
 
 	c := circle{rad: 5.}
@@ -78,4 +82,27 @@ func main() {
 	var blank twoDShape
 	fmt.Printf("%T %#v\n", blank, blank)
 	// printDetails(blank) // runtime errors  // nil pointer // no compile time issus
+	ball := circle{rad: 3.}
+	blank = ball
+	fmt.Printf("%T %#v\n", blank, blank)
+	printDetails(blank) // will work now, mapped to concrete object with underlying type circle // its dynamic type is now circle
+	// interface type //works such that // it holds the reference to its underlying  concrete type
+	// variables's type in go doesnot change // but interface in go can have dynamic types // kal nil, aaj circle, parso rect
+
+	// interface type assertion
+	fmt.Println(ball.volume()) // works since ball is of type circle // and volumne is methodreceiver for type circle
+	// blank.volume() // wont work // even though dynamic type is circle
+	// since interface type variables // can have dynamic types (of the mapped object) // we may need some type checking in code
+	fmt.Println(blank.(circle).volume()) //this works now // we say // work only if the type is circle
+	castedBlank, ok := blank.(circle)
+	if ok == true {
+		fmt.Println(castedBlank.volume())
+	}
+	switch tt := blank.(type) {
+	case circle:
+		fmt.Println("interface is of mapped type circle", tt)
+	case rect:
+		fmt.Println("interface is of mapped type rect", tt)
+	}
+
 }
