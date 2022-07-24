@@ -73,4 +73,9 @@ func main() {
 	// we cannot call printDetails() of functions that require twoDShape, for equilateralTri, since it does not implement all the methods of that interface
 	// printDetails(t) // cannot use t (variable of type equilateralTri) as twoDShape value in argument to printDetails: equilateralTri does not implement twoDShape (missing method area)compilerInvalidIfaceAssign
 	fmt.Println(t.peri())
+
+	// nil interface
+	var blank twoDShape
+	fmt.Printf("%T %#v\n", blank, blank)
+	// printDetails(blank) // runtime errors  // nil pointer // no compile time issus
 }
