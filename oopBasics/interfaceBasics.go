@@ -64,6 +64,50 @@ func (c circle) volume() float64 {
 	return math.Pow(c.rad, 3)
 }
 
+type threeDShape interface {
+	volume() float64
+}
+type cube struct {
+	side  float64
+	color string
+}
+
+func (c cube) area() float64 {
+	return math.Pow(float64(c.side), 2) * 6
+}
+func (c cube) peri() float64 {
+	return 12 * c.side
+}
+func (c cube) volume() float64 {
+	return math.Pow(float64(c.side), 3)
+}
+
+type geometry interface {
+	twoDShape
+	threeDShape
+	getColor() string
+}
+
+func (c cube) getColor() string {
+	return c.color
+}
+func printDetailsGeo(g geometry) {
+	fmt.Println(g)
+	fmt.Println("area", g.area())
+	fmt.Println("peri", g.peri())
+	fmt.Println("vol", g.volume())
+	fmt.Println("color", g.getColor())
+}
+
+// interface with no method // is inherited by all types
+type empty interface {
+}
+type person struct {
+	info        empty       // can store any value
+	anotherinfo interface{} // can store any value
+	name        string
+}
+
 func main() {
 
 	c := circle{rad: 5.}
@@ -92,7 +136,7 @@ func main() {
 	// interface type assertion
 	fmt.Println(ball.volume()) // works since ball is of type circle // and volumne is methodreceiver for type circle
 	// blank.volume() // wont work // even though dynamic type is circle
-	// since interface type variables // can have dynamic types (of the mapped object) // we may need some type checking in code
+	// since interface type variables // can have dynamic types (of the mapped object) // we need to first cast it specifically, and then use  the desired dynamic method
 	fmt.Println(blank.(circle).volume()) //this works now // we say // work only if the type is circle
 	castedBlank, ok := blank.(circle)
 	if ok == true {
@@ -105,4 +149,35 @@ func main() {
 		fmt.Println("interface is of mapped type rect", tt)
 	}
 
+	// interface nesting
+	// interface cannot inherit multiple interface
+	// need to create a new interface  // spefic the child interfaces(this brings all their methods) with other new methods // include, embedded
+	chotaCube := cube{side: 7, color: "yello"}
+	fmt.Println(chotaCube)
+	var geoKaShape geometry
+	geoKaShape = chotaCube
+	printDetailsGeo(geoKaShape)
+
+	// empty interface
+	// can be used as a representation for any type
+	// hence be careful in using them // since this bypassed strict typechecking // code will break at runtime only and not on compile time
+	// used in functions // where we need to pass variables // and type is unknown, or not determined // like using Object in java
+	var emptyVar1 empty
+	_ = emptyVar1
+	var emptyVar interface{}
+	emptyVar = "stting"
+	fmt.Println(emptyVar)
+	emptyVar = 100
+	fmt.Println(emptyVar)
+	emptyVar = []int{1, 2, 3}
+	fmt.Println(emptyVar)
+	// fmt.Println(len(emptyVar)) // len is not a method on empty interface // but on dynamic instantiated object slice // so cast to slice first
+	fmt.Println(len(emptyVar.([]int)))
+
+	p := person{name: "yolo"}
+	p.info = "random info" // assigning a string
+	p.anotherinfo = 100
+	fmt.Println(p)
+	p.info = []float64{2.2, 3.4, 5.4, 44} // assiging a slice
+	fmt.Println(p)
 }
