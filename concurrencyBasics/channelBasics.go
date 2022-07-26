@@ -37,7 +37,7 @@ func main() {
 	close(c) // close to avoid further communication
 
 	cpop := make(<-chan int)
-	cpush := make(chan<- int)
+	cpush := make(chan<- int) //TODO how are these used?
 	// go func() {
 	// 	cpush <- 4
 	// }()
