@@ -15,6 +15,9 @@ func main() {
 	// channel three types // bidirectional chan // receiving chan<- // sender <-chan
 	// channels has two operation // send operator <-  // receive operator
 
+	// WAITGROUPS or CHANNELS can help you sync main go routine with other go routines
+	// MUTUX are used to solve data races
+
 	//DECLARING CHANNEL
 	var ch chan int // variable ch is a channel of type chan dealing with values of type int
 	fmt.Println(ch) // nil

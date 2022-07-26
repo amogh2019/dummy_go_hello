@@ -26,7 +26,7 @@ func main() {
 			ch <- 1
 		}(ch)
 		fmt.Println("ith decrement done", <-ch)
-	}
+	} // isn't this now almost sequential // you are spwanning go routine and waitng one by one
 
 	fmt.Println(n)
 
