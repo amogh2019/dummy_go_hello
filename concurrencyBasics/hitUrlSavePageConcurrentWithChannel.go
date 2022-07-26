@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"runtime"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -31,26 +30,28 @@ func checkUrlAndSaveLocal(urlString string) {
 	}
 }
 
-func checkUrlAndSaveLocalConcurrent(url string, wg *sync.WaitGroup) {
+func checkUrlAndSaveLocalConcurrent(url string, ch chan int) {
 	checkUrlAndSaveLocal(url)
-	wg.Done()
+	ch <- 1
 }
 
 func main() {
 
-	urls := []string{ "https://sdfasdf.casdfasd", "https://google.com", "https://google.com/sdfasdfg.html", "https://fast.com",}
+	urls := []string{"https://sdfasdf.casdfasd", "https://google.com", "https://google.com/sdfasdfg.html", "https://fast.com"}
 
 	start := time.Now()
 	defer fmt.Println("lapsed time", time.Since(start))
 
-	var wg sync.WaitGroup
-	wg.Add(len(urls))
+	var ch chan int
+	ch = make(chan int)
 
 	for _, v := range urls {
-		go checkUrlAndSaveLocalConcurrent(v, &wg)
+		go checkUrlAndSaveLocalConcurrent(v, ch)
 	}
 
-	fmt.Println("num of goroutines that currently exists ", runtime.NumGoroutine())
-	wg.Wait()
+	for i := 0; i < len(urls); i++ {
+		<-ch
+		fmt.Println("num of goroutines that currently exists ", runtime.NumGoroutine())
+	}
 
 }
