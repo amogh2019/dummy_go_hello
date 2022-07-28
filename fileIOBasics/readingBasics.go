@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -28,11 +29,16 @@ func main() {
 	fmt.Println("complete file in buffer created by io package only,  continued from last read point in file\n", string(fullFileInBuffer))
 
 	sameFile, _ := os.Open(fileName)
+	defer sameFile.Close()
 	fullFileInBuffer, err = io.ReadAll(sameFile)
 	fmt.Println("complete file in buffer created by io package only, from starting point\n", string(fullFileInBuffer))
 
 	// READING with ioutils + manual File management
-	
+	sameFile, _ = os.Open(fileName)
+	defer sameFile.Close()
+	fullFileInBuffer, err = ioutil.ReadAll(sameFile)
+	fmt.Println("complete file in buffer created by io package only, from starting point\n", string(fullFileInBuffer))
+
 
 	// READING with ioutils + no file management
 }
