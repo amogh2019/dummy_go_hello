@@ -77,4 +77,25 @@ func main() {
 	}
 
 	fmt.Println(strings.Repeat("###", 20))
+
+	// READING from stdin
+	// either you can enter text into stdin while you run the program
+	// or you can simply let the program know that stdin is from a file // e.g. go run readingBasics.go < go.mod
+	fmt.Println("scanning from STDIN 1. if a file is already provided, program will read and finish automatically 2. if no file in stdin, program will wait for user to enter text in stdin(on console)")
+	fmt.Println("we would stop scanning for input, 1. either when a file is read from stdin and eof is reacher  2. or when we explicitely scan the word 'exit'")
+
+	stdinBufferedReader := bufio.NewScanner(os.Stdin)
+	fmt.Println("enter text :")
+
+	for stdinBufferedReader.Scan() {
+		dataRead := stdinBufferedReader.Text()
+		fmt.Println("the text that is read by buffered reader is : ", dataRead)
+		if dataRead == "exit" {
+			fmt.Println("breaking the scanning, since 'exit' is triggred")
+			break
+		}
+	}
+	if err := stdinBufferedReader.Err(); err != nil {
+		log.Fatal("some error in buffered reading", err)
+	}
 }
