@@ -57,7 +57,12 @@ func main() {
 	fmt.Println("inside main routine : get value : start")
 	for vall := range bch { // == val := <-bch
 		fmt.Println("inside main routine : get value : end :", vall)
-	} //TODO what will happen // is sending is more in channed // and receiving is less ??  or vice versa
+	} 
+	// How did the receiver know that sender sent just 6 and then sender stopped receiving from channel?
+	// 	Ans. since sender is sending a close() signal,
+	//		1. when receiver receives in this manner : <-ch  it returns {value, isOpen}, receiver can check on isOpen flag
+	//		2. when you receive using range // loop automatically stops when isOpen is false
+	// TODO what will happen and receiving is less ??
 
 	time.Sleep(time.Second * 2) // giving time for go routine to complete and print its last line
 
