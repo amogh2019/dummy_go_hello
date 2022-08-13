@@ -36,8 +36,9 @@ func main() {
 	// sender will be blocked, if no space left, till atleast something is consumed
 	// receiver will be blocked, till all buffer space empty
 	// receiver will work otherwise
-	// FIFO // async  nature
-	// When to use? when rate of consumption is slightly slower than production // so not to block production??
+	// FIFO 
+	// async nature 
+	// When to use? when we dont want to block sender till a msg is consumer // eg. when rate of consumption is slightly slower than production // so not to block message production, that is, it gives a small relief to the sender, since usually sender is blocked till some other routine consumes the message like in an unbuffered, but here, sender is not blocked and continues
 	bch := make(chan string, 3) // channel with buffer size
 	go func(c chan string) {
 
