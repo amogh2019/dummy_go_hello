@@ -28,7 +28,7 @@ func main() {
 			m.Lock()
 			defer m.Unlock() // will be queued once this function complete
 			n--
-			wg.Done() // 2nd issue here is that subtracts may happen before add
+			wg.Done()
 		}()
 	}
 
