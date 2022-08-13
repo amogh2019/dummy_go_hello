@@ -29,8 +29,8 @@ func main() {
 
 	/*
 		sample output
-		2022/08/13 14:29:47 Time Spent with 1 worker 9.666510848s
-		2022/08/13 14:29:47 Time Spent with 4 worker 4.718174285s
+		2022/08/13 14:38:10 Time Spent with 1 worker 15.8624282s
+		2022/08/13 14:38:10 Time Spent with 4 worker 7.701159842s
 	*/
 
 }
@@ -76,11 +76,11 @@ func worker(jobs <-chan int, results chan<- res, workerId string) {
 
 // an intended slower implementation of finding nth fibonacci
 func fib(i int) int64 {
-	if i <= 0 {
-		return -1
+	if i < 0 {
+		return -1 // to denote invalid for now
 	}
-	if i < 3 {
-		return int64(i) - 1
+	if i < 2 {
+		return int64(i)
 	}
 	return fib(i-1) + fib(i-2)
 }
