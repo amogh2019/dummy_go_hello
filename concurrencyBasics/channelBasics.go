@@ -40,7 +40,7 @@ func main() {
 	close(c) // close to avoid further communication
 
 	cpop := make(<-chan int)
-	cpush := make(chan<- int) //TODO how are these used?
+	cpush := make(chan<- int) // how are these used? check directional_channels.go
 	// go func() {
 	// 	cpush <- 4
 	// }()
